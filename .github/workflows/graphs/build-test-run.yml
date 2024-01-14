@@ -1,0 +1,100 @@
+entry: gh-start
+executions:
+  - src:
+      node: gh-start
+      port: exec-on-push
+    dst:
+      node: gh-checkout
+      port: exec
+  - src:
+      node: gh-checkout
+      port: exec
+    dst:
+      node: gh-actions-rust-lang-setup-rust-toolchain-v1-8-0-squirrel-pear-plum
+      port: exec
+  - src:
+      node: gh-actions-rust-lang-setup-rust-toolchain-v1-8-0-squirrel-pear-plum
+      port: exec
+    dst:
+      node: run-v1-raspberry-penguin-strawberry
+      port: exec
+  - src:
+      node: run-v1-raspberry-penguin-strawberry
+      port: exec-success
+    dst:
+      node: run-v1-squirrel-kangaroo-banana
+      port: exec
+  - src:
+      node: run-v1-squirrel-kangaroo-banana
+      port: exec-success
+    dst:
+      node: run-v1-raspberry-dog-parrot
+      port: exec
+  - src:
+      node: run-v1-raspberry-dog-parrot
+      port: exec-success
+    dst:
+      node: gh-actions-upload-artifact-purple-octopus-grape
+      port: exec
+connections: []
+nodes:
+  - id: gh-start
+    type: gh-start@v1
+    position:
+      x: 10
+      y: 10
+    settings:
+      folded: false
+  - id: gh-checkout
+    type: github.com/actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+    position:
+      x: 310
+      y: 1000
+    settings:
+      folded: false
+  - id: gh-actions-rust-lang-setup-rust-toolchain-v1-8-0-squirrel-pear-plum
+    type: >-
+      github.com/actions-rust-lang/setup-rust-toolchain@b113a30d27a8e59c969077c0a0168cc13dab5ffc
+    position:
+      x: 740
+      y: 910
+    settings:
+      folded: false
+  - id: run-v1-raspberry-penguin-strawberry
+    type: run@v1
+    position:
+      x: 1160
+      y: 840
+    inputs:
+      script: cargo test --all-features
+    settings:
+      folded: false
+  - id: run-v1-squirrel-kangaroo-banana
+    type: run@v1
+    position:
+      x: 1480
+      y: 750
+    inputs:
+      script: cargo run
+    settings:
+      folded: false
+  - id: gh-actions-upload-artifact-purple-octopus-grape
+    type: >-
+      github.com/actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595
+    position:
+      x: 2100
+      y: 630
+    settings:
+      folded: false
+  - id: run-v1-raspberry-dog-parrot
+    type: run@v1
+    position:
+      x: 1790
+      y: 670
+    inputs:
+      script: cargo build --release
+    settings:
+      folded: false
+registries:
+  - github.com/actions-rust-lang/setup-rust-toolchain@v1.8.0
+description: ''
